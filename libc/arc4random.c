@@ -65,13 +65,13 @@ static pthread_mutex_t	arc4random_mtx = PTHREAD_MUTEX_INITIALIZER;
 #define	_ARC4_LOCK()						\
 	do {							\
 		if (__isthreaded)				\
-			_pthread_mutex_lock(&arc4random_mtx);	\
+			pthread_mutex_lock(&arc4random_mtx);	\
 	} while (0)
 
 #define	_ARC4_UNLOCK()						\
 	do {							\
 		if (__isthreaded)				\
-			_pthread_mutex_unlock(&arc4random_mtx);	\
+			pthread_mutex_unlock(&arc4random_mtx);	\
 	} while (0)
 
 static int rs_initialized;

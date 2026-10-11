@@ -11,7 +11,7 @@ fs = import('fs')
 
 libprospero_global_shared_args = [
     '-march=znver2',
-    '-target x86_64-sie-ps5',
+    '--target=x86_64-sie-ps5',
     '-fno-stack-protector',
     '-fno-plt'
 ]
@@ -24,6 +24,11 @@ libprospero_includes = include_directories(
 
 libprospero_libs = []
 
+add_project_arguments(libprospero_global_shared_args,
+    language: 'c',
+    native: true
+)
+
 subdir('libc')
 
 libprospero_dep = declare_dependency(
@@ -31,3 +36,7 @@ libprospero_dep = declare_dependency(
     include_directories: libprospero_includes,
     link_with: libprospero_libs,
 )
+
+if(get_option('build_examples'))
+    subdir('examples')
+endif
