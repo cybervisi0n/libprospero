@@ -1,4 +1,4 @@
-project('libprospero', 'c', 'cpp',
+project('libprospero', ['c', 'cpp'],
     default_options: {
         'default_library': 'static',
         'prefer_static':    false
@@ -13,7 +13,8 @@ libprospero_global_shared_args = [
     '-march=znver2',
     '--target=x86_64-sie-ps5',
     '-fno-stack-protector',
-    '-fno-plt'
+    '-fno-plt',
+    '-g'
 ]
 
 libprospero_includes = include_directories(
@@ -23,12 +24,16 @@ libprospero_includes = include_directories(
 )
 
 libprospero_libs = []
+libprospero_link_args = [
+    '-nostdlib'
+]
 
 add_project_arguments(libprospero_global_shared_args,
     language: 'c',
     native: true
 )
 
+subdir('crt')
 subdir('libc')
 
 libprospero_dep = declare_dependency(
