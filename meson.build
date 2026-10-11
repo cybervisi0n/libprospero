@@ -10,7 +10,10 @@ project('libprospero', 'c', 'cpp',
 fs = import('fs')
 
 libprospero_global_shared_args = [
-    '-march=znver2'
+    '-march=znver2',
+    '-target x86_64-sie-ps5',
+    '-fno-stack-protector',
+    '-fno-plt'
 ]
 
 libprospero_includes = include_directories(
